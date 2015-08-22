@@ -1,0 +1,15 @@
+= simple_form_for Article.new, url: web_articles_path do |f|
+  %div
+    - if @article.errors[:title].any?
+      #title_error= @article.errors[:title][0]
+    = f.label :title
+    %div  
+      = f.text_field :title, error_html: { id: 'title_error'}
+  %div
+    - if @article.errors[:content].any?
+      #content_error= @article.errors[:content][0]
+    = f.label :content
+    %div
+      = f.text_area :content, error_html: { id: 'content_error'}
+  %div
+    = f.submit

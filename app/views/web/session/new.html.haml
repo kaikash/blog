@@ -1,0 +1,16 @@
+= simple_form_for UserForm.new, url: web_session_path do |f|
+  %div
+    - if flash[:error]
+      #error= flash[:error]
+  %div
+    - if @user.errors[:login].any?
+      #login_error= @user.errors[:login][0]
+    %div  
+      = f.input :login, error_html: { id: 'login_error'}
+  %div
+    - if @user.errors[:password].any?
+      #password_error= @user.errors[:password][0]
+    %div
+      = f.input :password, error_html: { id: 'password_error'}
+  %div
+    = f.submit
