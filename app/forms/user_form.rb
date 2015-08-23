@@ -3,7 +3,6 @@
 
 class UserForm
   include SimpleFormObject
-  include BCrypt
 
   attribute :password, :string
   attribute :login, :string
@@ -14,12 +13,11 @@ class UserForm
 
   def save
     return false unless valid?
-    user = User.where("(username = :login OR email = :login)", 
-      {login: @login}).first
+    user = User.where("(username = :login OR email = :login)",  {login: @login}).first
 
-    unless !user.nil? && user.password == @password 
-      return false
+    if user && user.authenticate(@password)
+      return user
     end
-    return user
+    false
   end
 end

@@ -1,16 +1,16 @@
 class Web::RegistrationController < ApplicationController
-	# GET /web/account/new
+	# GET /web/registration/new
 	def new
 		@user = User.new
 	end
 
-	# POST /web/account/create
+	# POST /web/registration
 	def create
 		@user = User.new registration_params
+		@user.role = 1
 		if @user.save
-      # authentication goes here
       flash[:notice] = "Successful registration!"
-			redirect_to controller: '/web/articles', action: :index
+			redirect_to controller: 'web/session', action: :new
 		else
 			render :new
 		end

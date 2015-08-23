@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 20150821120043) do
   create_table "articles", force: true do |t|
     t.string   "title"
     t.text     "content"
-    t.string   "author"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -32,11 +31,12 @@ ActiveRecord::Schema.define(version: 20150821120043) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "password_hash"
+    t.string   "password_digest"
     t.string   "username"
     t.string   "email"
     t.string   "name"
     t.string   "surname"
+    t.integer  "role",            default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

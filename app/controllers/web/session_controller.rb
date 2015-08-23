@@ -1,19 +1,27 @@
 class Web::SessionController < ApplicationController
-	# GET /web/account/login
-	def new
+  # load_and_authorize_resource
+  # skip_authorization_check except: [:destroy]
+  # GET /web/session/new
+  def new
     @user = UserForm.new
-	end
+  end
 
-	# POST /web/account/login
-	def create
+  # POST /web/session
+  def create
     @user = UserForm.new session_params
     if user = @user.save
       session[:current_user_id] = user.id
-      return redirect_to controller: '/web/articles', action: :index
+      return redirect_to controller: 'web/articles', action: :index
     end
     flash[:error] = "Password or login is incorrect" if @user.valid?
     render :new
-	end
+  end
+
+  def destroy
+    session.delete :current_user_id
+    flash[:notice] = "You've logged out"
+    redirect_to controller: 'web/articles', action: :index
+  end
 
   private
   def session_params
