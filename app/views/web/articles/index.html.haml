@@ -4,6 +4,6 @@
 		%div nothing here yet
 	- @articles.each do |article|
 		.article
-			%h3=link_to(article.title, web_article_path(article.id))
+			%h3= link_to(article.title, web_article_path(article.id))
 			%div= link_to(article.content, web_article_path(article.id))
 		%hr

@@ -1,6 +1,6 @@
 class Web::ArticlesController < ApplicationController
-  # load_and_authorize_resource
-  # skip_authorization_check only: [:index, :show]
+  authorize_resource
+
   def index
     @articles = Article.all
   end

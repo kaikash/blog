@@ -1,6 +1,6 @@
 class Web::SessionController < ApplicationController
-  # load_and_authorize_resource
-  # skip_authorization_check except: [:destroy]
+  before_filter :authed_closed, except: :destroy
+
   # GET /web/session/new
   def new
     @user = UserForm.new

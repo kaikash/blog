@@ -1,4 +1,4 @@
 %h2= @article.title
 %div= @article.content
-/ - if can? :destroy, Article
-%div= link_to 'Delete',  { action: :destroy, id: @article.id }, method: :delete, data: { confirm: 'Are you sure?' } 
+- if can? :destroy, @article
+  %div= link_to 'Delete',  { action: :destroy, id: @article.id }, method: :delete, data: { confirm: 'Are you sure?' } 

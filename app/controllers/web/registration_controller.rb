@@ -1,4 +1,6 @@
 class Web::RegistrationController < ApplicationController
+  before_filter :authed_closed
+
 	# GET /web/registration/new
 	def new
 		@user = User.new
