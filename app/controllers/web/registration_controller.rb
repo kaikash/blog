@@ -11,7 +11,7 @@ class Web::RegistrationController < ApplicationController
 		@user = User.new registration_params
 		@user.role = 1
 		if @user.save
-      flash[:notice] = "Successful registration!"
+      flash[:notice] = "Successful registration."
 			redirect_to controller: 'web/session', action: :new
 		else
 			render :new

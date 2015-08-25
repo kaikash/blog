@@ -1,0 +1,23 @@
+%nav.navbar.navbar-default
+  .container
+    .navbar-header
+      %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      .navbar-brand Blog
+
+    %ul.nav.navbar-nav
+      %li= link_to 'Home', root_path
+      - if can? :create, Article.new
+        %li= link_to 'Create article', new_web_article_path
+     
+    %ul.nav.navbar-nav.navbar-right 
+      - if @current_user
+        %li= link_to "Log out", web_session_path, method: :delete
+      - else
+        %li= link_to "Log in", new_web_session_path
+        %li= link_to "Sign up", new_web_registration_path
+    -if @current_user
+      %p.navbar-text.navbar-right= "Hi, #{@current_user.username}"

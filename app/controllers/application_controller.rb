@@ -6,17 +6,21 @@ class ApplicationController < ActionController::Base
   # check_authorization
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :notice => exception.message
+    redirect_to root_url, flash: {error: exception.message}
   end
 
   def current_user
-    @current_user ||= (session[:current_user_id] && User.find(session[:current_user_id]))
+    @current_user ||= (session[:current_user_id] && User.find_by_id(session[:current_user_id]))
+    unless @current_user
+      session.delete :current_user_id 
+    end
+    @current_user
   end
 
   private
   def authed_closed
     if current_user
-      raise CanCan::AccessDenied.new 'already authinticated!'
+      raise CanCan::AccessDenied.new 'You are already authinticated.'
     end
   end
 end

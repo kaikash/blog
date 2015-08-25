@@ -4,21 +4,19 @@
     %title Blog
     %link{:href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css", :rel => "stylesheet"}
     %link{:href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css", :rel => "stylesheet"}
-    %script{:src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"}
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    = link_to 'Home', root_path
-    - if @current_user
-      = link_to 'Create article', new_web_article_path
-    - if @current_user
-      %div= "Hi, #{@current_user.name} #{@current_user.id}"
-      %div= link_to "Log out", web_session_path, method: :delete
-    - else
-      %div
-        = link_to "Log in", new_web_session_path
-        or #{link_to "Sign up", new_web_registration_path}
-    - if flash[:notice]
-      .notice= flash[:notice]
-    = yield
+    = render 'shared/header'
+    .container
+      - if flash[:error]
+        .alert.alert-danger
+          %a.close{"data-dismiss" => "alert"} ×
+          = flash[:error]
+      - if flash[:notice]
+        .alert.alert-info
+          %a.close{"data-dismiss" => "alert"} ×
+          = flash[:notice]
+      = yield
+    %script{:src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"}

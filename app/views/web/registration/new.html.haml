@@ -1,28 +1,59 @@
-= simple_form_for User.new, url: web_registration_path do |f|
-  %div
-    - if @user.errors[:username].any?
-      #username_error= @user.errors[:username][0]
-    %div  
-      = f.input :username, error_html: { id: 'username_error'}
-  %div
-    - if @user.errors[:email].any?
-      #email_error= @user.errors[:email][0]
-    %div
-      = f.input :email, error_html: { id: 'email_error'}
-  %div
-    - if @user.errors[:password].any?
-      #password_error= @user.errors[:password][0]
-    %div
-      = f.input :password, error_html: { id: 'password_error'}
-  %div
-    - if @user.errors[:name].any?
-      #name_error= @user.errors[:name][0]
-    %div
-      = f.input :name, error_html: { id: 'name_error'}
-  %div
-    - if @user.errors[:surname].any?
-      #surname_error= @user.errors[:surname][0]
-    %div
-      = f.input :surname, error_html: { id: 'surname_error'}
-  %div
-    = f.submit
+= simple_form_for User.new, url: web_registration_path, html: {class: 'form-horizontal'} do |f|
+  - if @user.errors.any?
+    .alert.alert-danger
+      %a.close{"data-dismiss" => "alert"} ×
+      = @user.errors.full_messages[0]
+  .form-group
+    = f.label :username, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :username, class: 'form-control', placeholder: 'Username'
+  .form-group
+    = f.label :email, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :email, class: 'form-control', placeholder: 'Email'
+  .form-group
+    = f.label :name, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :name, class: 'form-control', placeholder: 'Name'
+  .form-group
+    = f.label :surname, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :surname, class: 'form-control', placeholder: 'Surname'
+  .form-group
+    = f.label :password, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.input_field :password, class: 'form-control', type: :password, placeholder: 'Password'
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit "Sign up", class: 'btn btn-default'
+
+
+
+/ = simple_form_for User.new, url: web_registration_path do |f|
+/   %div
+/     - if @user.errors[:username].any?
+/       #username_error= @user.errors[:username][0]
+/     %div  
+/       = f.input :username, error_html: { id: 'username_error'}
+/   %div
+/     - if @user.errors[:email].any?
+/       #email_error= @user.errors[:email][0]
+/     %div
+/       = f.input :email, error_html: { id: 'email_error'}
+/   %div
+/     - if @user.errors[:password].any?
+/       #password_error= @user.errors[:password][0]
+/     %div
+/       = f.input :password, error_html: { id: 'password_error'}
+/   %div
+/     - if @user.errors[:name].any?
+/       #name_error= @user.errors[:name][0]
+/     %div
+/       = f.input :name, error_html: { id: 'name_error'}
+/   %div
+/     - if @user.errors[:surname].any?
+/       #surname_error= @user.errors[:surname][0]
+/     %div
+/       = f.input :surname, error_html: { id: 'surname_error'}
+/   %div
+/     = f.submit

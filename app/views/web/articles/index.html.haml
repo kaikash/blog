@@ -1,9 +1,13 @@
 .content
-	%div List of all articles
-	-if @articles.empty?
-		%div nothing here yet
-	- @articles.each do |article|
-		.article
-			%h3= link_to(article.title, web_article_path(article.id))
-			%div= link_to(article.content, web_article_path(article.id))
-		%hr
+  %h2 List of all articles
+  -if @articles.empty?
+    %div
+      %em
+        nothing here yet
+  - @articles.each do |article|
+    .article
+      %h3= link_to(article.title, web_article_path(article.id))
+      %div= link_to(article.content_short, web_article_path(article.id))
+      .pull-right
+        %em - by #{article.user.username}
+    %hr

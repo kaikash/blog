@@ -1,4 +1,15 @@
 %h2= @article.title
 %div= @article.content
+%div.pull-right
+  %em - by #{@article.user.username}
 - if can? :destroy, @article
   %div= link_to 'Delete',  { action: :destroy, id: @article.id }, method: :delete, data: { confirm: 'Are you sure?' } 
+
+%div
+  - @article.comments.each do |comment|
+    %div= "#{comment.user.username}: #{comment.text}"
+
+= simple_form_for Comment.new, url: api_comments_path, method: :post, remote: true do |f|
+  = f.input :article_id, as: :hidden, input_html: {value: @article.id}                 
+  = f.input  :text
+  = f.button :submit                          

@@ -1,16 +1,17 @@
-= simple_form_for UserForm.new, url: web_session_path do |f|
-  %div
-    - if flash[:error]
-      #error= flash[:error]
-  %div
-    - if @user.errors[:login].any?
-      #login_error= @user.errors[:login][0]
-    %div  
-      = f.input :login, error_html: { id: 'login_error'}
-  %div
-    - if @user.errors[:password].any?
-      #password_error= @user.errors[:password][0]
-    %div
-      = f.input :password, error_html: { id: 'password_error'}
-  %div
-    = f.submit
+= simple_form_for UserForm.new, url: web_session_path, html: {class: 'form-horizontal'} do |f|
+  - if @user.errors.any?
+    .alert.alert-danger
+      %a.close{"data-dismiss" => "alert"} ×
+      = @user.errors.full_messages[0]
+  .form-group
+    = f.label :login, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :login, class: 'form-control', placeholder: 'Username or Email'
+  .form-group
+    = f.label :password, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.input_field :password, class: 'form-control', type: :password, placeholder: 'Password'
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit "Sign in", class: 'btn btn-default'
+

@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20150821120043) do
 
-  create_table "articles", force: true do |t|
+  create_table "articles", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.integer  "user_id"
@@ -23,14 +23,19 @@ ActiveRecord::Schema.define(version: 20150821120043) do
 
   add_index "articles", ["user_id"], name: "index_articles_on_user_id"
 
-  create_table "comments", force: true do |t|
-    t.text     "content"
-    t.string   "author"
+  create_table "comments", force: :cascade do |t|
+    t.text     "text"
+    t.integer  "user_id"
+    t.integer  "article_id"
+    t.integer  "like",       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  add_index "comments", ["article_id"], name: "index_comments_on_article_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+
+  create_table "users", force: :cascade do |t|
     t.string   "password_digest"
     t.string   "username"
     t.string   "email"

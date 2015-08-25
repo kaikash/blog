@@ -7,7 +7,6 @@ class UserForm
   attribute :password, :string
   attribute :login, :string
 
-  validates_presence_of :login, :password
   validates :password, presence: true, length: {in: 6..255}
   validates :login, presence: true, length: {in: 6..255}
 

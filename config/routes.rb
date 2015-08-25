@@ -17,6 +17,10 @@ Rails.application.routes.draw do
       controller: :session
   end
 
+  namespace :api do
+    resource :comments, only: [:create, :destroy]
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

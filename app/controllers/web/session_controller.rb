@@ -11,6 +11,7 @@ class Web::SessionController < ApplicationController
     @user = UserForm.new session_params
     if user = @user.save
       session[:current_user_id] = user.id
+      flash[:notice] = "Welcome back, #{user.name}!"
       return redirect_to controller: 'web/articles', action: :index
     end
     flash[:error] = "Password or login is incorrect" if @user.valid?
@@ -19,7 +20,7 @@ class Web::SessionController < ApplicationController
 
   def destroy
     session.delete :current_user_id
-    flash[:notice] = "You've logged out"
+    flash[:notice] = "You've logged out."
     redirect_to controller: 'web/articles', action: :index
   end
 
