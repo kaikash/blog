@@ -1,4 +1,4 @@
-class Web::RegistrationController < ApplicationController
+class Web::RegistrationController < Web::ApplicationController
   before_filter :authed_closed
 
 	# GET /web/registration/new

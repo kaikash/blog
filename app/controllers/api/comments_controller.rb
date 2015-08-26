@@ -1,12 +1,14 @@
-class Api::CommentsController < ApplicationController
+class Api::CommentsController < Api::ApplicationController
+  authorize_resource
+
   def create
     @comment = Comment.new comment_params
-    return render json: {error: 1, message: "No such article"} unless @comment.article 
+    return render json: {error: 1, message: "No such article"}, status: 404 unless @comment.article 
     @comment.user = current_user
     if @comment.save
-      return render json: {error: 0, comment: {id: @comment.id, text: @comment.text}}
+      return render json: {error: 0, comment: {id: @comment.id, text: @comment.text, user: {username: @comment.user.username}, date: @comment.date, likes_count: @comment.likes_count}}
     end
-    return render json: {error: 1, message: "Cannot leave a comment"}
+    return render json: {error: 1, error_message: @comment.errors.full_messages[0]}, status: 404
   end
 
   def destroy

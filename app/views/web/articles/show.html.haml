@@ -1,15 +1,53 @@
 %h2= @article.title
 %div= @article.content
-%div.pull-right
-  %em - by #{@article.user.username}
 - if can? :destroy, @article
   %div= link_to 'Delete',  { action: :destroy, id: @article.id }, method: :delete, data: { confirm: 'Are you sure?' } 
+.row.nav
+  .col.col-xs-4
+    %em
+      = @article.date
+  .col.col-xs-4
+    %a.nounderline.glyphicon.glyphicon-comment{href: "#{web_article_path(@article.id)}"}
+      %span.comments-count
+        = @article.comments.count
+  .col.col-xs-4
+    .pull-right
+      %em - by #{@article.user.username}
+.row
+  .col-md-6
+    .comments-title.nounderline.glyphicon.glyphicon-comment{href: "#{web_article_path(@article.id)}"}
+      Comments
+      (
+      %span.comments-count>= @article.comments.count
+      )
+    %div#comments.comments
+      - @article.comments.each do |comment|
+        .comment
+          .comment-top.clearfix
+            .comment-name.pull-left
+              = comment.user.username
+            .comment-date.pull-left
+              = comment.date
+            .comment-likes.pull-right
+              %i.glyphicon.glyphicon-heart
+                = comment.likes_count
+          .comment-content
+            = comment.text
+    - if can? :create, Comment
+      #new-comment-errors
+      .new-comment
+        = simple_form_for Comment.new, url: api_comments_path, method: :post, remote: true do |f|
+          = f.input :article_id, as: :hidden, input_html: {value: @article.id}   
+          .form-group     
+            = f.text_area :text, placeholder: "New comment...", class: 'new-comment-text form-control'
+          = f.button :submit, class: 'btn btn-default'
 
-%div
-  - @article.comments.each do |comment|
-    %div= "#{comment.user.username}: #{comment.text}"
+/%form#new_comment.new_comment{"accept-charset" => "UTF-8", :action => "/api/comments", :method => "post"}
+/  .input.hidden.comment_article_id
+/    %input#comment_article_id.hidden{:name => "comment[article_id]", :type => "hidden", :value => "1"}
+/  .input.text.optional.comment_text
+/    %label.text.optional{:for => "comment_text"} Text
+/    %textarea#comment_text.text.optional{:name => "comment[text]"}
+/  %input#btn_send.btn{:name => "commit", :type => "button", :value => "Create Comment"}
 
-= simple_form_for Comment.new, url: api_comments_path, method: :post, remote: true do |f|
-  = f.input :article_id, as: :hidden, input_html: {value: @article.id}                 
-  = f.input  :text
-  = f.button :submit                          
+

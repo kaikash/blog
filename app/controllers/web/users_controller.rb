@@ -1,2 +1,2 @@
-class Web::UsersController < ApplicationController
+class Web::UsersController < Web::ApplicationController
 end

@@ -8,6 +8,14 @@
     .article
       %h3= link_to(article.title, web_article_path(article.id))
       %div= link_to(article.content_short, web_article_path(article.id))
-      .pull-right
-        %em - by #{article.user.username}
+      .row
+        .col.col-xs-4
+          %em
+            = article.created_at.to_formatted_s :short
+        .col.col-xs-4
+          %a.nounderline.glyphicon.glyphicon-comment{href: "#{web_article_path(article.id)}"}
+            = article.comments.count
+        .col.col-xs-4
+          .pull-right
+            %em - by #{article.user.username}
     %hr

@@ -12,6 +12,8 @@ class Ability
     can [:index, :show], Article if user.guest?
 
     # Comments controller
-    # ..code
+    can [:create, :destroy], Comment if user.admin?
+    can :create, Comment if user.user?
+    can :destroy, Comment, user_id: user.id if user.user?
   end
 end

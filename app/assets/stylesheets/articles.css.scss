@@ -1,3 +1,45 @@
 // Place all the styles related to the articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.nounderline {
+  text-decoration: none !important
+}
+
+#new-comment-errors {
+  margin-top: 15px;
+}
+
+.comments-title {
+  font-size: 26px;
+}
+
+.new-comment {
+  margin-top: 15px;
+}
+
+.new-comment-text {
+  width: 100%;
+}
+
+.comment {
+  margin-top: 10px;
+}
+
+.comment-name {
+  margin-right: 10px;
+  font-weight: bold;
+  /*font-size: 13px;*/
+  color: #666;
+}
+
+.comment-date {
+  font-style: italic;
+  /*font-size: 12px;*/
+  /*margin-top: 2px;*/
+  color: #666;
+}
+
+.comment-content {
+  font-size: 16px;
+}

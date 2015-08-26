@@ -1,4 +1,4 @@
-class Web::SessionController < ApplicationController
+class Web::SessionController < Web::ApplicationController
   before_filter :authed_closed, except: :destroy
 
   # GET /web/session/new

@@ -1,4 +1,4 @@
-class Web::ArticlesController < ApplicationController
+class Web::ArticlesController < Web::ApplicationController
   authorize_resource
 
   def index
@@ -25,6 +25,7 @@ class Web::ArticlesController < ApplicationController
 
   def destroy
     @article = Article.find params[:id]
+    @article.comments.destroy_all
     @article.destroy
 
     redirect_to action: :index

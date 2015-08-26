@@ -4,7 +4,7 @@ class CreateComments < ActiveRecord::Migration
     	t.text :text
       t.belongs_to :user, index: true
       t.belongs_to :article, index: true
-      t.integer :like, default: 0
+      t.integer :likes, default: 0
 
       t.timestamps
     end

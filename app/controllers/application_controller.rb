@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   # check_authorization
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, flash: {error: exception.message}
+    access_denied exception
   end
 
   def current_user

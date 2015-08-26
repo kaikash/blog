@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821120043) do
+ActiveRecord::Schema.define(version: 20150826103205) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20150821120043) do
     t.text     "text"
     t.integer  "user_id"
     t.integer  "article_id"
-    t.integer  "like",       default: 0
+    t.integer  "likes_count", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
