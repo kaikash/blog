@@ -22,7 +22,7 @@
       )
     %div#comments.comments
       - @article.comments.each do |comment|
-        .comment
+        .comment{"data-id" => comment.id}
           .comment-top.clearfix
             .comment-name.pull-left
               = comment.user.username
@@ -31,6 +31,9 @@
             .comment-likes.pull-right
               %i.glyphicon.glyphicon-heart
                 = comment.likes_count
+            - if can? :destroy, comment
+              .comment-remove.pull-right
+                %i.glyphicon.glyphicon-remove
           .comment-content
             = comment.text
     - if can? :create, Comment

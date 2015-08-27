@@ -19,9 +19,24 @@ $('document').ready () ->
   .on 'ajax:error', (xhr, status, error) ->
     error_comment status.responseJSON.error_message
     console.log status.responseJSON
+  $('#comments')
+  .on 'click', '.comment-remove', () ->
+    _this = $(this).parent().parent()
+    _id = _this.attr('data-id')
+    $.ajax
+      url: "/api/comments/#{_id}"
+      type: "DELETE"
+    .done (data) ->
+      _this.slideUp 600, () ->
+        do $(this).remove
+      $('.comments-count').each () ->
+        $(this).text $(this).text()*1-1
+    .fail (data) ->
+      error_comment data.responseJSON.error_message
+
 
 new_comment = (comment) ->
-  $('#comments').append "<div class='comment'>
+  $('#comments').append "<div class='comment' data-id='#{comment.id}'>
   <div class='comment-top clearfix'>
     <div class='comment-name pull-left'>
       #{comment.user.username}
@@ -32,6 +47,10 @@ new_comment = (comment) ->
     <div class='comment-likes pull-right'>
       <i class='glyphicon glyphicon-heart'>
         #{comment.likes_count}
+      </i>
+    </div>
+    <div class='comment-remove pull-right'>
+      <i class='glyphicon glyphicon-remove'>
       </i>
     </div>
   </div>

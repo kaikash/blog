@@ -1,5 +1,5 @@
 class Api::CommentsController < Api::ApplicationController
-  authorize_resource
+  load_and_authorize_resource
 
   def create
     @comment = Comment.new comment_params
@@ -12,7 +12,10 @@ class Api::CommentsController < Api::ApplicationController
   end
 
   def destroy
-    
+    @comment = Comment.find params[:id]
+    @comment.destroy
+
+    render json: {error: 0, response: {success: 1}}
   end
 
   private

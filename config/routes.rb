@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    resource :comments, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
   end
 
   # Example of regular route:

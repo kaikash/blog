@@ -6,6 +6,15 @@
   text-decoration: none !important
 }
 
+.comment-remove {
+  margin-right: 10px;
+  opacity: .5;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+}
+
 #new-comment-errors {
   margin-top: 15px;
 }
