@@ -4,12 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :current_user
 
+  helper_method :current_user
 
-  rescue_from Exception, with: :render_error
+
+  # rescue_from Exception, with: :render_error
   rescue_from CanCan::AccessDenied, with: :access_denied
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found   
   rescue_from ActionController::RoutingError, with: :render_not_found
-  
+
   def current_user
     @current_user ||= (session[:current_user_id] && User.find_by_id(session[:current_user_id]))
     unless @current_user

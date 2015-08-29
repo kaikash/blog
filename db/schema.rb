@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826103205) do
+ActiveRecord::Schema.define(version: 20150829023802) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -21,7 +24,15 @@ ActiveRecord::Schema.define(version: 20150826103205) do
     t.datetime "updated_at"
   end
 
-  add_index "articles", ["user_id"], name: "index_articles_on_user_id"
+  add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
+
+  create_table "articles_hashtags", force: :cascade do |t|
+    t.integer "hashtag_id"
+    t.integer "article_id"
+  end
+
+  add_index "articles_hashtags", ["article_id"], name: "index_articles_hashtags_on_article_id", using: :btree
+  add_index "articles_hashtags", ["hashtag_id"], name: "index_articles_hashtags_on_hashtag_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "text"
@@ -32,18 +43,34 @@ ActiveRecord::Schema.define(version: 20150826103205) do
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["article_id"], name: "index_comments_on_article_id"
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+  add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "hashtags", force: :cascade do |t|
+    t.string   "hashtag"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "searches", force: :cascade do |t|
+    t.string   "query"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "searches", ["user_id"], name: "index_searches_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "password_digest"
-    t.string   "username"
     t.string   "email"
     t.string   "name"
     t.string   "surname"
-    t.integer  "role",            default: 0
+    t.integer  "role",       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "img"
   end
 
 end

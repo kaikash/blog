@@ -12,7 +12,7 @@
         = @article.comments.count
   .col.col-xs-4
     .pull-right
-      %em - by #{@article.user.username}
+      %em - by #{@article.user.fullname}
 .row
   .col-md-6
     .comments-title.nounderline.glyphicon.glyphicon-comment{href: "#{web_article_path(@article.id)}"}
@@ -25,7 +25,7 @@
         .comment{"data-id" => comment.id}
           .comment-top.clearfix
             .comment-name.pull-left
-              = comment.user.username
+              = comment.user.fullname
             .comment-date.pull-left
               = comment.date
             .comment-likes.pull-right

@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  namespace :web do
-  get 'session/web/registration'
-  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -10,11 +7,23 @@ Rails.application.routes.draw do
   root 'web/articles#index'
 
   namespace :web do
-    resources :articles
-    resource :registration, only: [:new, :create],
-      controller: :registration
-    resource :session, only: [:new, :create, :destroy],
-      controller: :session
+    resources :articles, except: [:edit, :update]
+    # resource :search, only: [:create, :new],
+      # controller: :search
+
+    post '/search', to: "search#search", as: "search"
+    # get '/search-home', to: "search#result", as: "search_result"
+
+    get '/hashtag/:hashtag', to: "hashtags#show", as: "hashtag"
+    post '/hashtag/:hashtag', to: "hashtag#create", as: "hashtags"
+
+    get '/profile', to: "users#index", as: "profile"
+    get '/profiles/:id', to: "users#show", as: "profiles"
+    
+
+    get "/logout", to: "session#destroy", as: "logout"
+    get "/auth/:provider/callback", to: "session#create", as: "auth_callback"
+    get "/auth/failure", to: "session#failure", as: "auth_failure"
   end
 
   namespace :api do

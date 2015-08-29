@@ -1,0 +1,12 @@
+.content
+  %div
+    %img{:src => @user.img}
+  %div
+    Email:
+    = @user.email
+  %div
+    = @user.fullname
+  %div
+    Total articels:
+    = @user.articles.count
+      

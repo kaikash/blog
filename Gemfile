@@ -21,6 +21,7 @@ gem 'jquery-rails'
 gem 'simple_form'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -30,6 +31,9 @@ gem 'simple_form_object'
 gem 'spring',        group: :development
 gem 'bcrypt'
 gem 'cancancan'
+gem 'pg'
+gem 'omniauth'
+gem 'omniauth-vkontakte'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -1,10 +1,11 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$('document').ready () ->
+ready =  ->
+  $('.dropdown-toggle').dropdown();
+  console.log "ready!!!!"
   $('#new_comment')
   .on 'ajax:success', (event, data, status, xhr) ->
-    console.log data
     new_comment data.comment
     $('#comment_text').val ''
     $('.comments-count').each () ->
@@ -19,8 +20,9 @@ $('document').ready () ->
   .on 'ajax:error', (xhr, status, error) ->
     error_comment status.responseJSON.error_message
     console.log status.responseJSON
-  $('#comments')
-  .on 'click', '.comment-remove', () ->
+
+  $('#comments').on 'click', '.comment-remove', () ->
+    console.log 'click .comment-remove'
     _this = $(this).parent().parent()
     _id = _this.attr('data-id')
     $.ajax
@@ -34,12 +36,13 @@ $('document').ready () ->
     .fail (data) ->
       error_comment data.responseJSON.error_message
 
+$(document).on('ready page:load', ready)
 
 new_comment = (comment) ->
   $('#comments').append "<div class='comment' data-id='#{comment.id}'>
   <div class='comment-top clearfix'>
     <div class='comment-name pull-left'>
-      #{comment.user.username}
+      #{comment.user.fullname}
     </div>
     <div class='comment-date pull-left'>
       #{comment.date}

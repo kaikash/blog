@@ -18,6 +18,10 @@ class Web::RegistrationController < Web::ApplicationController
 		end
 	end
 
+	def signup_finish
+		
+	end
+
 	private
 	def registration_params
     params.require(:user).permit(:username, :name, :surname, :email, :password)

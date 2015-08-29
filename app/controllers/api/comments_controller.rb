@@ -5,17 +5,33 @@ class Api::CommentsController < Api::ApplicationController
     @comment = Comment.new comment_params
     return render json: {error: 1, message: "No such article"}, status: 404 unless @comment.article 
     @comment.user = current_user
-    if @comment.save
-      return render json: {error: 0, comment: {id: @comment.id, text: @comment.text, user: {username: @comment.user.username}, date: @comment.date, likes_count: @comment.likes_count}}
+    if @comment.save 
+      _json =
+      @comment.as_json(
+        root: true,
+        methods: :date, 
+        include: {
+          user: {
+            only: [
+              :name,
+              :surname
+            ],
+            methods: :fullname
+          }
+        }
+      )
+      _json[:error] = 0
+      return render json: _json
     end
     return render json: {error: 1, error_message: @comment.errors.full_messages[0]}, status: 404
   end
 
   def destroy
     @comment = Comment.find params[:id]
-    @comment.destroy
-
-    render json: {error: 0, response: {success: 1}}
+    if @comment.destroy
+      return render json: {error: 0, response: {success: 1}}, status: 204
+    end
+    render json: {error: 1, error_message: "Error has occured."}
   end
 
   private

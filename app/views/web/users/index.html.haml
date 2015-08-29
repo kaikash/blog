@@ -1,0 +1,13 @@
+.content
+  This is me
+  %div
+    %img{:src => current_user.img}
+  %div
+    Email:
+    = current_user.email
+  %div
+    = current_user.fullname
+  %div
+    Total articels:
+    = current_user.articles.count
+      

@@ -1,0 +1,6 @@
+.content
+  - if @search.errors.any?
+    .alert.alert-danger
+      %a.close{"data-dismiss" => "alert"} ×
+      = @search.errors.full_messages[0]
+  Results: 

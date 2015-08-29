@@ -15,5 +15,7 @@ class Ability
     can [:create, :destroy], Comment if user.admin?
     can :create, Comment if user.user?
     can :destroy, Comment, user_id: user.id if user.user?
+
+    can :index, User if user.admin? || user.user?
   end
 end

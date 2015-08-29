@@ -16,6 +16,7 @@ class Web::ArticlesController < Web::ApplicationController
   def create
     @article = Article.new article_params
     @article.user = current_user
+    @article.find_hashtags
     if @article.save
       redirect_to :controller => 'web/articles', :action => 'show', :id => @article
     else
@@ -25,10 +26,10 @@ class Web::ArticlesController < Web::ApplicationController
 
   def destroy
     @article = Article.find params[:id]
-    @article.comments.destroy_all
-    @article.destroy
-
-    redirect_to action: :index
+    if @article.destroy
+      return redirect_to action: :index
+    end
+    render plain: "Error has occured."
   end
 
   private
